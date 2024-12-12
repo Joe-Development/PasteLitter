@@ -28,7 +28,7 @@ const modalBuilder = (title, message, yesText, noText, yesCallback, noCallback) 
 
 const deleteUser = id => modalBuilder('Delete User', 'Are you sure you want to delete this user?', 'Yes', 'No', () => {
     $.ajax({
-        url: `/api/users/${id}`,
+        url: `/api/delete/user/${id}`,
         method: 'DELETE',
         success: function(data) {
             if (data.status === 'success') {
