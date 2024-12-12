@@ -3,6 +3,8 @@
 
 [![Logo](https://files.catbox.moe/ef7tlc.png)](https://github.com/Joe-Development/PasteLitter)
 
+[![wakatime](https://wakatime.com/badge/user/c891a0e7-299e-423d-8191-23677f6089aa/project/71823118-6f6c-480d-915b-d89205693c2a.svg)](https://wakatime.com/badge/user/c891a0e7-299e-423d-8191-23677f6089aa/project/71823118-6f6c-480d-915b-d89205693c2a)
+
 PasteLitter is an open source solution for a pastebin like website. It is made with Node.JS and uses a MySQL database for storing the pastes.
 
 It is currently in development and is not yet ready for production use. any errors or suggestions can be reported to the [issues page](https://github.com/Joe-Development/PasteLitter/issues).
