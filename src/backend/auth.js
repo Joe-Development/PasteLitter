@@ -1,5 +1,5 @@
 const rateLimit = require('express-rate-limit');
-const { comparePassword, hashPassword, logAction } = require('../functions/extra');
+const { comparePassword, hashPassword, logAction, generatePfp } = require('../functions/extra');
 const { query } = require('../database');
 
 const limiter = rateLimit({
@@ -32,6 +32,14 @@ module.exports = function (app, session) {
             return;
         }
 
+        if (user[0].banned) {
+            res.status(401).send({
+                message: 'Your account has been banned',
+            });
+            logAction(user[0].username, 'Attempted to login with <b style="color: red;">Banned</b> account');
+            return;
+        }
+
         const htmlRegex = /<(script|img|iframe|object|embed|form|input|textarea|a|style|link|meta|base|body|html|head|title|frame|frameset|svg)[^>]*?(on[a-z]+\s*?=\s*?['"][^'"]*?['"]|javascript\s*?:\s*?[^'"]+|[^\w\s-]|<|>|&|%3C|%3E|%3Cscript|%3E|%3Csvg|%3Ca|%3D|%3Cimg)[^>]*?>|<.*?javascript\s*?:[^>]*>/i;
 
         if (htmlRegex.test(username) || htmlRegex.test(password)) {
@@ -53,7 +61,8 @@ module.exports = function (app, session) {
             id: user[0].id,
             username: user[0].username,
             rank: user[0].rank,
-            email: user[0].email
+            email: user[0].email,
+            avatar: user[0].avatar
         };
 
         logAction(user[0].username, 'Logged in');
@@ -78,6 +87,7 @@ module.exports = function (app, session) {
             });
             return;
         }
+
         const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
         if (email && !emailRegex.test(email)) {
             res.status(400).send({
@@ -103,8 +113,9 @@ module.exports = function (app, session) {
                 return;
             }
         }
+        const avatar = await generatePfp(username);
         const hashedPassword = await hashPassword(password);
-        await query('INSERT INTO users (username, password, email) VALUES (?, ?, ?)', [username, hashedPassword, email || 'anonymous@litter.com']);
+        await query('INSERT INTO users (username, password, email, avatar) VALUES (?, ?, ?, ?)', [username, hashedPassword, email || 'anonymous@litter.com', avatar]);
         res.status(200).send({
             message: 'User registered successfully',
         })

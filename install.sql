@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS `users` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`avatar` VARCHAR(255) NULL DEFAULT 'https://i2.wp.com/ui-avatars.com/api//Paste+Litter/128?ssl=1',
 	`username` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`email` VARCHAR(255) NOT NULL DEFAULT 'anonymous@litter.com' COLLATE 'utf8mb4_general_ci',
 	`password` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',

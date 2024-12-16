@@ -31,6 +31,11 @@ module.exports = {
         }
     },
 
+    generatePfp: async (username) => {
+        return `https://ui-avatars.com/api/${username}/128?ssl=1`;
+    },
+    
+
     /**
      * 
      * @param {string} password 
