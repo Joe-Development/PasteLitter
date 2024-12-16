@@ -1,7 +1,18 @@
+const rateLimit = require('express-rate-limit');
 const { comparePassword, hashPassword, logAction } = require('../functions/extra');
 const { query } = require('../database');
 
+const limiter = rateLimit({
+    windowMs: 60 * 1000,
+    max: 10,
+    message: {
+        message: 'Too many login attempts. Please try again later.',
+    },
+});
+
 module.exports = function (app, session) {
+    app.use('/auth', limiter);
+
     app.post('/auth/login', async (req, res) => {
         const { username, password } = req.body;
         const user = await query('SELECT * FROM users WHERE username = ?', [username]);
@@ -37,6 +48,7 @@ module.exports = function (app, session) {
         logAction(user[0].username, 'Logged in');
         res.redirect('/');
     });
+
 
     app.post('/auth/register', async (req, res) => {
         const { username, password, email } = req.body;
