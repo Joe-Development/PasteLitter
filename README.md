@@ -12,7 +12,7 @@ It is currently in development and is not yet ready for production use. any erro
 ## Features / Upcoming Features
 - [x] Simplistic UI
 - [x] Register / Login
-- [ ] Google or Cloudflare Captcha Support for Registering/Logging In
+- [ ] Google or Cloudflare Captcha Support for Registering/Logging In (40% done)
 - [ ] Admin Panel (20% done)
 - [ ] Better Stats Page for Admins
 - [ ] Add a Clean Home Page
