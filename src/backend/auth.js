@@ -17,7 +17,6 @@ module.exports = function (app, session) {
         const { username, password } = req.body;
 
 
-        // length check
         if (username.length < 3 || password.length < 4 || username.length > 32 || password.length > 32) {
             res.status(400).send({
                 message: 'Username and password must be between 3 and 32 characters',
@@ -65,7 +64,6 @@ module.exports = function (app, session) {
     app.post('/auth/register', async (req, res) => {
         const { username, password, email } = req.body;
 
-        // length limit
         if (username.length > 32 || password.length > 32) {
             res.status(400).send({
                 message: 'Username and password must be less than 32 characters',
