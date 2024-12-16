@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/partials/navbar.css" type="text/css">
     <link href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/icons/favicon.ico" type="image/x-icon">
+    <% if (recaptcha_enabled) { %><script src="https://www.google.com/recaptcha/enterprise.js?render=<%= recaptcha_site_key %>"></script><% } %>
     <title><%= title %></title>
 </head>
 <body>
@@ -30,6 +31,28 @@
             <i class='bx bx-show password-toggle' id="togglePassword"></i>
         </div>
 
+        <% if (recaptcha_enabled) { %>
+            <style>
+                .g-recaptcha {
+                    display: inline-block;
+                    margin-bottom: 1rem;
+                    transform: scale(0.8);
+                    transform-origin: 0 0;
+                }
+            </style>
+            <div class="input-container">
+                <div class="g-recaptcha" data-sitekey="<%= recaptcha_site_key %>"></div>
+            </div>
+            <script>
+                function onClick(e) {
+                  e.preventDefault();
+                  grecaptcha.enterprise.ready(async () => {
+                    const token = await grecaptcha.enterprise.execute('<%= recaptcha_site_key %>', {action: 'REGISTER'});
+                  });
+                }
+            </script>
+        <% } %>
+            
         <button type="submit">Register</button>
         <div class="error-message hidden"></div>
 
