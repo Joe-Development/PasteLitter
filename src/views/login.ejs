@@ -67,6 +67,11 @@
                 const username = $('input[name="username"]').val();
                 const password = $('input[name="password"]').val();
 
+                if (username.length < 3 || password.length < 4 || username.length > 32 || password.length > 32) {
+                    $('.error-message').text('Username and password must be between 3 and 32 characters').removeClass('hidden');
+                    return;
+                }
+
                 if (!username || !password) {
                     $('.error-message').text('Please enter a username and password').removeClass('hidden');
                     return;
@@ -95,6 +100,11 @@
             event.preventDefault();
             const username = $('input[name="username"]').val();
             const password = $('input[name="password"]').val();
+
+            if (username.length < 3 || password.length < 4 || username.length > 32 || password.length > 32) {
+                $('.error-message').text('Username and password must be between 3 and 32 characters').removeClass('hidden');
+                return;
+            }
 
             if (!username || !password) {
                 $('.error-message').text('Please enter a username and password').removeClass('hidden');
