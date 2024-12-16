@@ -162,7 +162,9 @@ app.get('/auth/register', (req, res) => {
     res.render('register', {
         title: 'PasteLitter - Register',
         path: req.path,
-        user: null
+        user: null,
+        recaptcha_enabled: config.RE_CAPTCHA_ENABLED === 'false' ? false : true,
+        recaptcha_site_key: config.RE_CAPTCHA_KEY
     });
 });
 
@@ -173,7 +175,9 @@ app.get('/auth/login', (req, res) => {
     res.render('login', {
         title: 'PasteLitter - Login',
         path: req.path,
-        user: null
+        user: null,
+        recaptcha_enabled: config.RE_CAPTCHA_ENABLED === 'false' ? false : true,
+        recaptcha_site_key: config.RE_CAPTCHA_KEY
     });
 });
 
