@@ -33,7 +33,7 @@ module.exports = function (app, session) {
         }
 
         if (user[0].banned) {
-            res.status(401).send({
+            res.status(403).send({
                 message: 'Your account has been banned',
             });
             logAction(user[0].username, 'Attempted to login with <b style="color: red;">Banned</b> account');
